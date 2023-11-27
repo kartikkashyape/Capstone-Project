@@ -8,8 +8,9 @@ library(quantmod)
 ```
 
 
+## Australia 
 ```{r, warning = FALSE, message = FALSE}
-AUD <- getSymbols("AUD=X",
+AUD <- getSymbols("AUDUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -21,7 +22,30 @@ colnames(AUD_Price) <- "AUD"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
-HKD <- getSymbols("HKD=X",
+ASX <- "^AXJO"
+
+getSymbols(ASX,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+ASX_Price <- Ad(AXJO)
+
+colnames(ASX_Price) <- "ASX"
+
+ASX_change <- na.omit(log(diff(ASX_Price)))
+```
+
+```{r}
+index1 <- na.omit(merge.xts(AUD_Price, ASX_Price))
+
+index1$ASX_USD <- (index1$AUD * index1$ASX)
+```
+
+
+## Hong Kong
+```{r, warning = FALSE, message = FALSE}
+HKD <- getSymbols("HKDUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -33,7 +57,30 @@ colnames(HKD_Price) <- "HKD"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
-JPY <- getSymbols("JPY=X",
+HSI <- "^HSI"
+
+getSymbols(HSI,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+HSI_Price <- Ad(HSI)
+
+colnames(HSI_Price) <- "HSI"
+
+HSI_change <- na.omit(log(diff(HSI_Price)))
+```
+
+```{r}
+index2 <- na.omit(merge.xts(HKD_Price, HSI_Price))
+
+index2$HSI_USD <- (index2$HKD * index2$HSI)
+```
+
+
+## Japan
+```{r, warning = FALSE, message = FALSE}
+JPY <- getSymbols("JPYUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -45,7 +92,30 @@ colnames(JPY_Price) <- "JPY"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
-NZD <- getSymbols("NZD=X",
+N225 <- "^N225"
+
+getSymbols(N225,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+N225_Price <- Ad(N225)
+
+colnames(N225_Price) <- "N225"
+
+N225_change <- na.omit(log(diff(N225_Price)))
+```
+
+```{r}
+index3 <- na.omit(merge.xts(JPY_Price, N225_Price))
+
+index3$N225_USD <- (index3$JPY * index3$N225)
+```
+
+
+## New Zealand
+```{r, warning = FALSE, message = FALSE}
+NZD <- getSymbols("NZDUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -57,7 +127,30 @@ colnames(NZD_Price) <- "NZD"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
-SGD <- getSymbols("SGD=X",
+NZ50 <- "^NZ50"
+
+getSymbols(NZ50,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+NZ50_Price <- Ad(NZ50)
+
+colnames(NZ50_Price) <- "NZ50"
+
+NZ50_change <- na.omit(log(diff(NZ50_Price)))
+```
+
+```{r}
+index4 <- na.omit(merge.xts(NZD_Price, NZ50_Price))
+
+index4$NZ50_USD <- (index4$NZD * index4$NZ50)
+```
+
+
+## Singapore
+```{r, warning = FALSE, message = FALSE}
+SGD <- getSymbols("SGDUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -69,7 +162,30 @@ colnames(SGD_Price) <- "SGD"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
-CNY <- getSymbols("CNY=X",
+STI <- "^STI"
+
+getSymbols(STI,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+STI_Price <- Ad(STI)
+
+colnames(STI_Price) <- "STI"
+
+STI_change <- na.omit(log(diff(STI_Price)))
+```
+
+```{r}
+index5 <- na.omit(merge.xts(SGD_Price, STI_Price))
+
+index5$STI_USD <- (index5$SGD * index5$STI)
+```
+
+
+## China
+```{r, warning = FALSE, message = FALSE}
+CNY <- getSymbols("CNYUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -81,7 +197,31 @@ colnames(CNY_Price) <- "CNY"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
-INR <- getSymbols("INR=X",
+SSE <- "000001.SS"
+
+SSE <- getSymbols(SSE,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+SSE_Price <- Ad(SSE)
+
+colnames(SSE_Price) <- "SSE"
+
+SSE_change <- na.omit(log(diff(SSE_Price)))
+```
+
+```{r}
+index6 <- na.omit(merge.xts(CNY_Price, SSE_Price))
+
+index6$SSE_USD <- (index6$CNY * index6$SSE)
+```
+
+
+## India
+```{r, warning = FALSE, message = FALSE}
+INR <- getSymbols("INRUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -93,7 +233,30 @@ colnames(INR_Price) <- "INR"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
-IDR <- getSymbols("IDR=X",
+BSX <- "^BSESN"
+
+getSymbols(BSX,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+BSX_Price <- Ad(BSESN)
+
+colnames(BSX_Price) <- "BSX"
+
+BSX_change <- na.omit(log(diff(BSX_Price)))
+```
+
+```{r}
+index7 <- na.omit(merge.xts(INR_Price, BSX_Price))
+
+index7$BSX_USD <- (index7$INR * index7$BSX)
+```
+
+
+## Indonesia
+```{r, warning = FALSE, message = FALSE}
+IDR <- getSymbols("IDRUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -105,7 +268,30 @@ colnames(IDR_Price) <- "IDR"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
-MYR <- getSymbols("MYR=X",
+IDX <- "^JKSE"
+
+getSymbols(IDX,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+IDX_Price <- Ad(JKSE)
+
+colnames(IDX_Price) <- "IDX"
+
+IDX_change <- na.omit(log(diff(IDX_Price)))
+```
+
+```{r}
+index8 <- na.omit(merge.xts(IDR_Price, IDX_Price))
+
+index8$IDX_USD <- (index8$IDR * index8$IDX)
+```
+
+
+## Malaysia
+```{r, warning = FALSE, message = FALSE}
+MYR <- getSymbols("MYRUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -117,7 +303,30 @@ colnames(MYR_Price) <- "MYR"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
-KRW <- getSymbols("KRW=X",
+KLSE <- "^KLSE"
+
+getSymbols(KLSE,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+KLSE_Price <- Ad(KLSE)
+
+colnames(KLSE_Price) <- "KLSE"
+
+KLSE_change <- na.omit(log(diff(KLSE_Price)))
+```
+
+```{r}
+index9 <- na.omit(merge.xts(MYR_Price, KLSE_Price))
+
+index9$KLSE_USD <- (index9$MYR * index9$KLSE)
+```
+
+
+## South Korea
+```{r, warning = FALSE, message = FALSE}
+KRW <- getSymbols("KRWUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -129,7 +338,30 @@ colnames(KRW_Price) <- "KRW"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
-PHP <- getSymbols("PHP=X",
+KOSPI <- "^KS11"
+
+getSymbols(KOSPI,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+KOSPI_Price <- Ad(KS11)
+
+colnames(KOSPI_Price) <- "KOSPI"
+
+KOSPI_change <- na.omit(log(diff(KOSPI_Price)))
+```
+
+```{r}
+index10 <- na.omit(merge.xts(KRW_Price, KOSPI_Price))
+
+index10$KOSPI_USD <- (index10$KRW * index10$KOSPI)
+```
+
+
+## Philippines
+```{r, warning = FALSE, message = FALSE}
+PHP <- getSymbols("PHPUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -141,7 +373,29 @@ colnames(PHP_Price) <- "PHP"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
-TWD <- getSymbols("TWD=X",
+PSE <- "PSEi.PS"
+
+getSymbols(PSE,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+PSE_Price <- Ad(PSEI.PS)
+
+colnames(PSE_Price) <- "PSE"
+
+PSE_change <- na.omit(log(diff(PSE_Price)))
+```
+
+```{r}
+index11 <- na.omit(merge.xts(PHP_Price, PSE_Price))
+index11$PSE_USD <- (index11$PHP * index11$PSE)
+```
+
+
+## Taiwan
+```{r, warning = FALSE, message = FALSE}
+TWD <- getSymbols("TWDUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -153,7 +407,30 @@ colnames(TWD_Price) <- "TWD"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
-THB <- getSymbols("THB=X",
+TAIEX <- "^TWII"
+
+getSymbols(TAIEX,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+TAIEX_Price <- Ad(TWII)
+
+colnames(TAIEX_Price) <- "TAIEX"
+
+TAIEX_change <- na.omit(log(diff(TAIEX_Price)))
+```
+
+```{r}
+index12 <- na.omit(merge.xts(TWD_Price, TAIEX_Price))
+
+index12$TAIEX_USD <- (index12$TWD * index12$TAIEX)
+```
+
+
+## Thailand
+```{r, warning = FALSE, message = FALSE}
+THB <- getSymbols("THBUSD=X",
            from = '2003-01-01',
            to = '2023-03-31',
            src = "yahoo",
@@ -165,6 +442,39 @@ colnames(THB_Price) <- "THB"
 ```
 
 ```{r, warning = FALSE, message = FALSE}
+SET <- "^SET.BK"
+
+getSymbols(SET,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+SET_Price <- Ad(SET.BK)
+
+colnames(SET_Price) <- "SET"
+
+SET_change <- na.omit(log(diff(SET_Price)))
+```
+
+```{r}
+index13 <- na.omit(merge.xts(THB_Price, SET_Price))
+
+index13$SET_USD <- (index13$THB * index13$SET)
+```
+
+
+```{r, warning = FALSE, message = FALSE}
 All_Currencies <- na.omit(merge(AUD_Price, HKD_Price, JPY_Price, NZD_Price, SGD_Price, CNY_Price, INR_Price, IDR_Price, MYR_Price, KRW_Price, PHP_Price, TWD_Price, THB_Price))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+All_Indices_USD <- na.omit(merge.xts(index1$ASX_USD, index2$HSI_USD, index3$N225_USD, index4$NZ50_USD, index5$STI_USD, index6$SSE_USD, index7$BSX_USD, index8$IDX_USD, index9$KLSE_USD, index10$KOSPI_USD, index11$PSE_USD, index12$TAIEX_USD, index13$SET_USD))
+
+All_Indices_USD_df <- as.data.frame(All_Index_USD)
+```
+
+```{r}
+All_Indices_USD_df_CSV <- write.csv(All_Indices_USD_df, "C:/Users/HP/Desktop/College/Capstone Project/All Indices in USD.csv")
 ```
 

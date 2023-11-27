@@ -1,0 +1,311 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, warning = FALSE, message = FALSE}
+library(quantmod)
+library(rdbnomics)
+library(igraph)
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+ASX <- "^AXJO"
+
+getSymbols(ASX,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+ASX_Price <- Ad(AXJO)
+
+colnames(ASX_Price) <- "ASX"
+
+ASX_change <- na.omit(log(diff(ASX_Price)))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+HSI <- "^HSI"
+
+getSymbols(HSI,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+HSI_Price <- Ad(HSI)
+
+colnames(HSI_Price) <- "HSI"
+
+HSI_change <- na.omit(log(diff(HSI_Price)))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+N225 <- "^N225"
+
+getSymbols(N225,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+N225_Price <- Ad(N225)
+
+colnames(N225_Price) <- "N225"
+
+N225_change <- na.omit(log(diff(N225_Price)))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+NZ50 <- "^NZ50"
+
+getSymbols(NZ50,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+NZ50_Price <- Ad(NZ50)
+
+colnames(NZ50_Price) <- "NZ50"
+
+NZ50_change <- na.omit(log(diff(NZ50_Price)))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+STI <- "^STI"
+
+getSymbols(STI,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+STI_Price <- Ad(STI)
+
+colnames(STI_Price) <- "STI"
+
+STI_change <- na.omit(log(diff(STI_Price)))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+SSE <- "000001.SS"
+
+SSE <- getSymbols(SSE,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+SSE_Price <- Ad(SSE)
+
+colnames(SSE_Price) <- "SSE"
+
+SSE_change <- na.omit(log(diff(SSE_Price)))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+BSX <- "^BSESN"
+
+getSymbols(BSX,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+BSX_Price <- Ad(BSESN)
+
+colnames(BSX_Price) <- "BSX"
+
+BSX_change <- na.omit(log(diff(BSX_Price)))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+IDX <- "^JKSE"
+
+getSymbols(IDX,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+IDX_Price <- Ad(JKSE)
+
+colnames(IDX_Price) <- "IDX"
+
+IDX_change <- na.omit(log(diff(IDX_Price)))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+KOSPI <- "^KS11"
+
+getSymbols(KOSPI,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+KOSPI_Price <- Ad(KS11)
+
+colnames(KOSPI_Price) <- "KOSPI"
+
+KOSPI_change <- na.omit(log(diff(KOSPI_Price)))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+KLSE <- "^KLSE"
+
+getSymbols(KLSE,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+KLSE_Price <- Ad(KLSE)
+
+colnames(KLSE_Price) <- "KLSE"
+
+KLSE_change <- na.omit(log(diff(KLSE_Price)))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+PSE <- "PSEi.PS"
+
+getSymbols(PSE,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+PSE_Price <- Ad(PSEI.PS)
+
+colnames(PSE_Price) <- "PSE"
+
+PSE_change <- na.omit(log(diff(PSE_Price)))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+TAIEX <- "^TWII"
+
+getSymbols(TAIEX,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+TAIEX_Price <- Ad(TWII)
+
+colnames(TAIEX_Price) <- "TAIEX"
+
+TAIEX_change <- na.omit(log(diff(TAIEX_Price)))
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+SET <- "^SET.BK"
+
+getSymbols(SET,
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo")
+
+SET_Price <- Ad(SET.BK)
+
+colnames(SET_Price) <- "SET"
+
+SET_change <- na.omit(log(diff(SET_Price)))
+```
+
+
+```{r}
+All_Indices <- merge.xts(AXJO,
+                         HSI,
+                         N225,
+                         NZ50,
+                         STI,
+                         SSE,
+                         BSESN,
+                         JKSE,
+                         KS11,
+                         KLSE,
+                         PSEI.PS,
+                         TWII,
+                         SET.BK)
+
+All_Indices_df <- as.data.frame(All_Indices)
+
+Clean_All_Indices <- na.omit(All_Indices_df)
+```
+
+
+```{r}
+All_Prices <- merge(ASX_Price,
+                    HSI_Price,
+                    N225_Price,
+                    NZ50_Price,
+                    STI_Price,
+                    SSE_Price,
+                    BSX_Price,
+                    IDX_Price,
+                    KOSPI_Price,
+                    KLSE_Price,
+                    PSE_Price,
+                    TAIEX_Price,
+                    SET_Price)
+
+All_Prices_df <- as.data.frame(All_Prices)
+
+Clean_All_Prices <- na.omit(All_Prices_df)
+```
+
+
+```{r}
+All_Changes <- merge(ASX_change,
+                    HSI_change,
+                    N225_change,
+                    NZ50_change,
+                    STI_change,
+                    SSE_change,
+                    BSX_change,
+                    IDX_change,
+                    KOSPI_change,
+                    KLSE_change,
+                    PSE_change,
+                    TAIEX_change,
+                    SET_change)
+
+All_Changes_df <- as.data.frame(All_Changes)
+
+Clean_All_Changes <- na.omit(All_Changes_df)
+```
+
+
+```{r}
+## Creating CSV's
+
+All_Indices_df_CSV <- write.csv(All_Indices_df,
+                                "C:/Users/HP/Desktop/College/Capstone Project/All Indices.csv")
+
+Clean_All_Indices_CSV <- write.csv(Clean_All_Indices,
+                                   "C:/Users/HP/Desktop/College/Capstone Project/Clean All Indices.csv")
+
+All_Prices_df_CSV <- write.csv(All_Prices_df,
+                               "C:/Users/HP/Desktop/College/Capstone Project/All Price.csv")
+
+Clean_All_Prices_CSV <- write.csv(Clean_All_Prices,
+                                  "C:/Users/HP/Desktop/College/Capstone Project/Clean All Prices.csv")
+
+All_Changes_df_CSV <- write.csv(All_Changes_df,
+                                "C:/Users/HP/Desktop/College/Capstone Project/All Changes.csv")
+
+Clean_All_Changes_CSV <- write.csv(Clean_All_Changes,
+                                   "C:/Users/HP/Desktop/College/Capstone Project/Clean All Changes.csv")
+```
+
+
+```{r}
+mst_all_change <- mst(Combined_All_Prices_df)
+```
+

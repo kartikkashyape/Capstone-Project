@@ -1,0 +1,170 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, warning = FALSE, message = FALSE}
+library(quantmod)
+```
+
+
+```{r, warning = FALSE, message = FALSE}
+AUD <- getSymbols("AUD=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+AUD_Price <- Ad(AUD)
+
+colnames(AUD_Price) <- "AUD"
+```
+
+```{r, warning = FALSE, message = FALSE}
+HKD <- getSymbols("HKD=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+HKD_Price <- Ad(HKD)
+
+colnames(HKD_Price) <- "HKD"
+```
+
+```{r, warning = FALSE, message = FALSE}
+JPY <- getSymbols("JPY=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+JPY_Price <- Ad(JPY)
+
+colnames(JPY_Price) <- "JPY"
+```
+
+```{r, warning = FALSE, message = FALSE}
+NZD <- getSymbols("NZD=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+NZD_Price <- Ad(NZD)
+
+colnames(NZD_Price) <- "NZD"
+```
+
+```{r, warning = FALSE, message = FALSE}
+SGD <- getSymbols("SGD=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+SGD_Price <- Ad(SGD)
+
+colnames(SGD_Price) <- "SGD"
+```
+
+```{r, warning = FALSE, message = FALSE}
+CNY <- getSymbols("CNY=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+CNY_Price <- Ad(CNY)
+
+colnames(CNY_Price) <- "CNY"
+```
+
+```{r, warning = FALSE, message = FALSE}
+INR <- getSymbols("INR=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+INR_Price <- Ad(INR)
+
+colnames(INR_Price) <- "INR"
+```
+
+```{r, warning = FALSE, message = FALSE}
+IDR <- getSymbols("IDR=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+IDR_Price <- Ad(IDR)
+
+colnames(IDR_Price) <- "IDR"
+```
+
+```{r, warning = FALSE, message = FALSE}
+MYR <- getSymbols("MYR=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+MYR_Price <- Ad(MYR)
+
+colnames(MYR_Price) <- "MYR"
+```
+
+```{r, warning = FALSE, message = FALSE}
+KRW <- getSymbols("KRW=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+KRW_Price <- Ad(KRW)
+
+colnames(KRW_Price) <- "KRW"
+```
+
+```{r, warning = FALSE, message = FALSE}
+PHP <- getSymbols("PHP=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+PHP_Price <- Ad(PHP)
+
+colnames(PHP_Price) <- "PHP"
+```
+
+```{r, warning = FALSE, message = FALSE}
+TWD <- getSymbols("TWD=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+TWD_Price <- Ad(TWD)
+
+colnames(TWD_Price) <- "TWD"
+```
+
+```{r, warning = FALSE, message = FALSE}
+THB <- getSymbols("THB=X",
+           from = '2003-01-01',
+           to = '2023-03-31',
+           src = "yahoo",
+           auto.assign = FALSE)
+
+THB_Price <- Ad(THB)
+
+colnames(THB_Price) <- "THB"
+```
+
+```{r, warning = FALSE, message = FALSE}
+All_Currencies <- na.omit(merge(AUD_Price, HKD_Price, JPY_Price, NZD_Price, SGD_Price, CNY_Price, INR_Price, IDR_Price, MYR_Price, KRW_Price, PHP_Price, TWD_Price, THB_Price))
+```
+
